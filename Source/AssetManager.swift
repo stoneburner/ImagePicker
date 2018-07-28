@@ -55,15 +55,17 @@ open class AssetManager {
     let imageManager = PHImageManager.default()
     let requestOptions = PHImageRequestOptions()
     requestOptions.isSynchronous = true
+    requestOptions.isNetworkAccessAllowed = true
 
     var images = [UIImage]()
     for asset in assets {
-      imageManager.requestImage(for: asset, targetSize: size, contentMode: .aspectFill, options: requestOptions) { image, _ in
-        if let image = image {
-          images.append(image)
+        imageManager.requestImage(for: asset, targetSize: size, contentMode: .aspectFill, options: requestOptions) { image, info in
+            if let image = image {
+                images.append(image)
+            }
         }
-      }
     }
     return images
   }
+  
 }
